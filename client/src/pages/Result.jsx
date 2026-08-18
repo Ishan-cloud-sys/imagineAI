@@ -1,35 +1,76 @@
-import React from 'react'
-import {assets} from '../assets/assets'
-import { useImageStore } from '../store/imageStore'
+import React from "react";
+import { assets } from "../assets/assets";
+import { useImageStore } from "../store/imageStore";
+import { motion } from "framer-motion";
 const Result = () => {
-  const {image,setImage,isImageLoaded,setIsImageLoaded,loading,setLoading,input,setInput}=useImageStore()
+  const {
+    image,
+    setImage,
+    isImageLoaded,
+    setIsImageLoaded,
+    loading,
+    setLoading,
+    input,
+    setInput,
+  } = useImageStore();
   // todo:link this with backend
-  const onSubmitHandler = async(e)=>{
-
-  }
+  const onSubmitHandler = async (e) => {};
   return (
-    <form onSubmit={onSubmitHandler} className='flex flex-col min-h-[90vh] justify-center items-center'>
+    <motion.form
+      onSubmit={onSubmitHandler}
+      className="flex flex-col min-h-[90vh] justify-center items-center"
+      initial={{ opacity: 0.2, y: 100 }}
+      transition={{ duration: 1 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+    >
       <div>
-        <div className='relative'>
-          <img src={image} alt="" className='max-w-sm rounded' />
-          <span className={`absolute bottom-0 left-0 h-1 bg-blue-500 ${loading?'w-full transition-all duration-[10s]' : 'w-0'} `}></span>
+        <div className="relative">
+          <img src={image} alt="" className="max-w-sm rounded" />
+          <span
+            className={`absolute bottom-0 left-0 h-1 bg-blue-500 ${loading ? "w-full transition-all duration-[10s]" : "w-0"} `}
+          ></span>
         </div>
-        <p className={!loading?'hidden':''}>Loading.....</p>
+        <p className={!loading ? "hidden" : ""}>Loading.....</p>
       </div>
-      {!isImageLoaded &&
-       <div className='flex w-full max-w-xl bg-neutral-500 text-white text-sm p-0.5 mt-10 rounded-full'>
-        <input onChange={(e)=>setInput(e.target.value)} value={input}
-        type="text" placeholder='Describe what you want to generate' className='flex-1 ml-8 max-sm:w-20 bg-transparent outline-none placeholder-color'/>
-        <button type='submit' className='bg-zinc-900 px-10 sm:px-16 py-3 rounded-full'>Generate</button>
-      </div>}
-      {isImageLoaded &&
-      <div className='flex flex-wrap gap-2 justify-center text-white text-sm p-0.5 mt-10 rounded-full'>
-        <p onClick={()=>{setIsImageLoaded(false)}} className='cursor-pointer bg-transparent border border-zinc-900 text-black px-8 py-3 rounded-full '>Generate Another</p>
-        <a href={image} download className='bg-zinc-900 px-10 py-3 rounded-full cursor-pointer'>Download</a>
-      </div>
-      }
-    </form>
-  )
-}
+      {!isImageLoaded && (
+        <div className="flex w-full max-w-xl bg-neutral-500 text-white text-sm p-0.5 mt-10 rounded-full">
+          <input
+            onChange={(e) => setInput(e.target.value)}
+            value={input}
+            type="text"
+            placeholder="Describe what you want to generate"
+            className="flex-1 ml-8 max-sm:w-20 bg-transparent outline-none placeholder-color"
+          />
+          <button
+            type="submit"
+            className="bg-zinc-900 px-10 sm:px-16 py-3 rounded-full"
+          >
+            Generate
+          </button>
+        </div>
+      )}
+      {isImageLoaded && (
+        <div className="flex flex-wrap gap-2 justify-center text-white text-sm p-0.5 mt-10 rounded-full">
+          <p
+            onClick={() => {
+              setIsImageLoaded(false);
+            }}
+            className="cursor-pointer bg-transparent border border-zinc-900 text-black px-8 py-3 rounded-full "
+          >
+            Generate Another
+          </p>
+          <a
+            href={image}
+            download
+            className="bg-zinc-900 px-10 py-3 rounded-full cursor-pointer"
+          >
+            Download
+          </a>
+        </div>
+      )}
+    </motion.form>
+  );
+};
 
-export default Result
+export default Result;
