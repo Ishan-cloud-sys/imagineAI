@@ -47,7 +47,7 @@ export const userCredits=async(req,res)=>{
   try {
     const {userId}=req.body // we will provide the userId in the body through the middleware
     const user=await userModel.findById(userId)
-    res.json({success:true,creidts:user.creditBalance,user:{name:user.name}})
+    res.json({success:true,credits:user.creditBalance,user:{name:user.name}})
   } catch (error) {
       console.log(error.message)
       res.json({success:false,message:error.message})

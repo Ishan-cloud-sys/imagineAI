@@ -2,6 +2,8 @@ import React from "react";
 import { assets } from "../assets/assets";
 import { useImageStore } from "../store/imageStore";
 import { motion } from "framer-motion";
+import { useUserStore } from "../store/userStore";
+import { useNavigate } from "react-router-dom";
 const Result = () => {
   const {
     image,
@@ -13,8 +15,21 @@ const Result = () => {
     input,
     setInput,
   } = useImageStore();
+    const {generateImage}=useUserStore()
+    const navigate=useNavigate();
   // todo:link this with backend
-  const onSubmitHandler = async (e) => {};
+  const onSubmitHandler = async (e) => {
+    e.preventDefault();
+    setLoading(true)
+    if(input){
+      const image= await generateImage(input,navigate)
+      if(image){
+        setIsImageLoaded(true)
+        setImage(image)
+      }
+    }
+    setLoading(false)
+  };
   return (
     <motion.form
       onSubmit={onSubmitHandler}
