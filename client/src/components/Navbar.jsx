@@ -3,7 +3,7 @@ import { assets } from '../assets/assets'
 import { Link, useNavigate } from 'react-router-dom'
 import { useUserStore } from '../store/userStore'
 const Navbar = () => {
-    const {user,setShowLogin}=useUserStore()
+    const {user,setShowLogin,logout,credit}=useUserStore()
     const navigate = useNavigate()
   return (
    
@@ -20,14 +20,14 @@ const Navbar = () => {
             <div className='flex items-center gap-2 sm:gap-3'>
                 <button className='flex items-center gap-2 bg-blue-100 px-4 sm:px-6 py-1.5 sm:py-3 rounded-full hover:scale-105 transition-all duration-700'>
                     <img src={assets.credit_star} alt="" className='w-5' />
-                    <p onClick={()=>(navigate)} className='text-xs sm:text-sm font-medium text-gray-600'>Credits left:50</p>
+                    <p onClick={()=>(navigate('/buy'))} className='text-xs sm:text-sm font-medium text-gray-600'>Credits left:{credit}</p>
                 </button>
-                <p className='text-gray-600 max-sm:hidden pl-4'>Hi, Ishan</p>
+                <p className='text-gray-600 max-sm:hidden pl-4'>Hi, {user.name}</p>
                 <div className='relative group'>
                     <img src={assets.profile_icon} alt="" className='w-10 drop-shadow cursor-pointer' />
-                    <div className='absolute hidden group-hover:block top-full mt-3 right-0 z-10 text-black rounded '>
+                    <div className='absolute hidden group-hover:block top-full pt-3 right-0 z-10 text-black rounded '>
                         <ul className='list-none m-0 p-2 bg-white rounded-md border text-sm'>
-                            <li className='py-1 px-2 cursor-pointer pr-10'>Logout</li>
+                            <li onClick={logout} className='py-1 px-2 cursor-pointer pr-10'>Logout</li>
                         </ul>
                     </div>
                 </div>

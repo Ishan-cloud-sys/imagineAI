@@ -9,6 +9,7 @@ export const userAuth=async(req,res,next)=>{ //next here is used to move to cont
     try {
         const tokenDecode=jwt.verify(token,process.env.JWT_SECRET)
         if(tokenDecode){
+            req.body=req.body ||{};
             req.body.userId=tokenDecode.id
         }
         else{
